@@ -2,7 +2,7 @@
         <head>
         <title>cmsimde_site</title>
         <meta charset="utf-8">
-<meta property="head" content="H2">
+<meta property="head" content="H1">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/icomoon/style.css">
         <link rel="stylesheet" href="./../cmsimde/static/chimper/css/bootstrap.min.css">
@@ -131,7 +131,7 @@ img.add_border {
                             <li><a href="./../blog/index.html">blog</a></li>
                         </ul>
                       </li>
-                     <li><a href='About.html'>About</a><li class='has-children'><a href='Reeborg.html'>Reeborg</a><ul class='dropdown'><li><a href='ex1.html'>ex1</a><li><a href='Otto_ninja.html'>Otto_ninja</a></li></ul><li class='has-children'><a href='Brython.html'>Brython</a><ul class='dropdown'><li><a href='Brython_ex.html'>Brython_ex</a></li></ul><li class='has-children'><a href='Pyodide.html'>Pyodide</a><ul class='dropdown'><li><a href='Pyodide_ex.html'>Pyodide_ex</a></li>
+                     <li><a href='About.html'>About</a><li><a href='WH3.html'>WH3</a><li><a href='WH7.html'>WH7</a><li><a href='WH10.html'>WH10</a><li><a href='WH14.html'>WH14</a><li><a href='WH17.html'>WH17</a><li><a href='WH18.html'>WH18</a></li>
                       </ul>
                 </nav>
               </div>
@@ -142,137 +142,185 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">Brython << <a href='Brython.html'>Previous</a> <a href='Pyodide.html'>Next</a> >> Pyodide<br /><h1>Brython_ex</h1>
-<p><a href="https://mde.tw/cp2025/content/Brython.html?src=https://gist.githubusercontent.com/mdecycu/ec4bb35dd0769e7a83d2a9fa57878a67/raw/9d55811467e411eb89f74171d8a586ae9f1a96aa/brython_robot_free_walk.py">機器人自由行</a></p>
-<p>Can we bring pythonpad into this page? <a href="https://pythonpad.github.io/docs/manual.html">https://pythonpad.github.io/docs/manual.html</a> </p>
-<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">from browser import document, html, timer
- 
-canvas = html.CANVAS(width=400, height=400)
-brython_div = document["brython_div1"]
-brython_div &lt;= canvas
-ctx = canvas.getContext("2d")
- 
-def draw_grid():
-    ctx.clearRect(0, 0, 400, 400)
-    ctx.strokeStyle = "#ccc"
-    ctx.lineWidth = 1
-    for i in range(0, 401, 40):
-        ctx.beginPath()
-        ctx.moveTo(i, 0)
-        ctx.lineTo(i, 400)
-        ctx.stroke()
-        ctx.beginPath()
-        ctx.moveTo(0, i)
-        ctx.lineTo(400, i)
-        ctx.stroke()
-    
-    # 畫出邊界
-    ctx.strokeStyle = "black"
-    ctx.lineWidth = 2
-    ctx.strokeRect(0, 0, 400, 400)
-
-def draw_robot(x, y):
-    draw_grid()
-    ctx.fillStyle = "blue"
-    ctx.beginPath()
-    ctx.arc(x * 40 + 20, y * 40 + 20, 15, 0, 6.28)
-    ctx.fill()
-
-x, y = 0, 0
-def move():
-    global x
-    x = (x + 1) % 10
-    draw_robot(x, y)
-
-draw_grid()
-timer.set_interval(move, 500)</pre>
-<p>以下程式, 按 j 隨箭頭方向前進, 按下 i 則左轉</p>
-<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">from browser import document, html, bind
-
-canvas = html.CANVAS(width=400, height=400)
-brython_div = document["brython_div1"]
-brython_div &lt;= canvas
-ctx = canvas.getContext("2d")
-
-cols, rows = 10, 10
-cell = 40
-
-# 上、右、下、左
-directions = [(0, -1), (1, 0), (0, 1), (-1, 0)]
-
-robot = {
-    "x": 5,
-    "y": 5,
-    "dir": 0  # 初始朝向上
+    <div id="tipue_search_content">WH17 << <a href='WH17.html'>Previous</a> <br /><h1>WH18</h1>
+<div id="mpl_output2"></div>
+<div id="brython_div2"></div>
+<p>
+<script>
+function getUrlParam(key) {
+  return new URLSearchParams(window.location.search).get(key);
+}
+function updateUrlParam(key, value) {
+  const url = new URL(window.location);
+  url.searchParams.set(key, value);
+  window.history.replaceState({}, "", url);
 }
 
-def draw_grid():
-    ctx.clearRect(0, 0, 400, 400)
-    ctx.strokeStyle = "#ccc"
-    ctx.lineWidth = 1
-    for i in range(0, 401, cell):
-        ctx.beginPath()
-        ctx.moveTo(i, 0)
-        ctx.lineTo(i, 400)
-        ctx.stroke()
-        ctx.beginPath()
-        ctx.moveTo(0, i)
-        ctx.lineTo(400, i)
-        ctx.stroke()
-    ctx.strokeStyle = "black"
-    ctx.lineWidth = 2
-    ctx.strokeRect(0, 0, 400, 400)
+let pyodide, editor1, editor2;
 
-def draw_robot():
-    draw_grid()
-    cx = robot["x"] * cell + cell // 2
-    cy = robot["y"] * cell + cell // 2
-    size = 15
-    d = robot["dir"]
+document.addEventListener("DOMContentLoaded", async () => {
+  editor1 = ace.edit("kw_editor1");
+  editor1.setTheme("ace/theme/chrome");
+  editor1.session.setMode("ace/mode/python");
 
-    ctx.fillStyle = "blue"
-    ctx.beginPath()
-    if d == 0:  # 上
-        ctx.moveTo(cx, cy - size)
-        ctx.lineTo(cx - size, cy + size)
-        ctx.lineTo(cx + size, cy + size)
-    elif d == 1:  # 右
-        ctx.moveTo(cx + size, cy)
-        ctx.lineTo(cx - size, cy - size)
-        ctx.lineTo(cx - size, cy + size)
-    elif d == 2:  # 下
-        ctx.moveTo(cx, cy + size)
-        ctx.lineTo(cx - size, cy - size)
-        ctx.lineTo(cx + size, cy - size)
-    elif d == 3:  # 左
-        ctx.moveTo(cx - size, cy)
-        ctx.lineTo(cx + size, cy - size)
-        ctx.lineTo(cx + size, cy + size)
-    ctx.closePath()
-    ctx.fill()
+  editor2 = ace.edit("kw_editor2");
+  editor2.setTheme("ace/theme/chrome");
+  editor2.session.setMode("ace/mode/python");
 
-@bind(document, "keydown")
-def on_key(e):
-    key = e.key.lower()
-    if key == "i":
-        robot["dir"] = (robot["dir"] - 1) % 4  # 左轉
-    elif key == "j":
-        dx, dy = directions[robot["dir"]]
-        nx = robot["x"] + dx
-        ny = robot["y"] + dy
-        if 0 &lt;= nx &lt; cols and 0 &lt;= ny &lt; rows:
-            robot["x"] = nx
-            robot["y"] = ny
-    draw_robot()
+  pyodide = await loadPyodide();
+  await pyodide.loadPackage(["numpy", "scipy", "matplotlib", "micropip"]);
 
-draw_robot()</pre>
-<p>Optimization:</p>
-<p>題目:<br/>一位製造商想設計一個開口式的盒子，其底部為長方形，寬為 x、長為 y，且總表面積為 80 平方公分。 請問要使盒子的體積達到最大，應該選用哪些尺寸？</p>
-<p>直接利用 Python 以 <a href="https://en.wikipedia.org/wiki/Differential_evolution">Differential Evoluation</a> 運算: <a href="./../downloads/de_volume_max.py">de_volume_max.py</a></p>
-<p style="padding-left: 30px;">參考: </p>
-<p style="padding-left: 60px;"><a href="./../downloads/de_volume_max.c">de_volume_max.c</a>, <a href="./../downloads/de_volume_max.v">de_volume_max.v</a></p>
-<p>也可以採網頁前端使用 Brython，後端採 Python 執行運算後將資料傳回網頁: <a href="./../downloads/brython_w_flask.7z">brython_w_flask.7z</a></p>
-<br />Brython << <a href='Brython.html'>Previous</a> <a href='Pyodide.html'>Next</a> >> Pyodide</div>
+  // 定義 hello() 模組
+  const code = `
+def hello():
+    print("Hello from custom module!")
+`;
+  pyodide.runPython(code);
+
+  const GIST_ADD1TO100 =
+    "https://gist.githubusercontent.com/mdecourse/0229a8a017091476a79700b8a190f185/raw/" +
+    "c48e37714f055c3a0027cbfef59e442a6ef659b9/from_1_add_to_100_1.py";
+  const NUMPY_ODE =
+    "https://gist.githubusercontent.com/mdecycu/ec4bb35dd0769e7a83d2a9fa57878a67/raw/" +
+    "98d582539545b3c9fbfa35dd3e605c506367618e/pyodide_ode_ex1.py";
+  const PYODIDE_ROBOT_ANIMATION =
+    "https://gist.githubusercontent.com/mdecycu/ec4bb35dd0769e7a83d2a9fa57878a67/raw/" +
+    "f3d75d08f2b90f4470342e91ee1e5c36b5f950bf/pyodide_robot_ex1.py";
+  const FREE_WALK = 
+    "https://gist.githubusercontent.com/mdecycu/ec4bb35dd0769e7a83d2a9fa57878a67/raw/" + "d1659628afe5d36a026ef305dc639f6be4c9f608/pyodide_robot_ex3.py"
+
+  const src = getUrlParam("src");
+  if (src === PYODIDE_ROBOT_ANIMATION) {
+    const robotCode = await fetchCode(PYODIDE_ROBOT_ANIMATION);
+    editor1.setValue(robotCode, -1);
+    updateUrlParam("src", PYODIDE_ROBOT_ANIMATION);
+    runPyodide(editor1, "kw_console1", "brython_div1");
+  } else {
+    const initialCode = await fetchCode(src || GIST_ADD1TO100);
+    editor1.setValue(initialCode, -1);
+    runPyodide(editor1, "kw_console1", "brython_div1");
+  }
+
+  editor2.setValue("", -1);
+
+  document.getElementById("version").onclick = () => {
+    const vcode = `
+import pyodide
+import sys
+import matplotlib
+import numpy
+import scipy
+print("Pyodide version:", pyodide.__version__)
+print("Python version :", sys.version)
+print("matplotlib version:", matplotlib.__version__)
+print("numpy version:", numpy.__version__)
+print("scipy version:", scipy.__version__)
+`;
+    editor1.setValue(vcode, -1);
+    updateUrlParam("src", "inline_version");
+    runPyodide(editor1, "kw_console1", "brython_div1");
+  };
+
+  document.getElementById("hello_button").onclick = () => {
+    editor1.setValue("hello()", -1);
+    updateUrlParam("src", "inline_hello");
+    runPyodide(editor1, "kw_console1", "brython_div1");
+  };
+
+  document.getElementById("add1to100").onclick = async () => {
+    const c = await fetchCode(GIST_ADD1TO100);
+    editor1.setValue(c, -1);
+    updateUrlParam("src", GIST_ADD1TO100);
+    runPyodide(editor1, "kw_console1", "brython_div1");
+  };
+
+  document.getElementById("numpy_ode").onclick = async () => {
+    const c = await fetchCode(NUMPY_ODE);
+    editor1.setValue(c, -1);
+    updateUrlParam("src", NUMPY_ODE);
+    runPyodide(editor1, "kw_console1", "brython_div1");
+  };
+
+  document.getElementById("robot1").onclick = async () => {
+    const rc = await fetchCode(PYODIDE_ROBOT_ANIMATION);
+    editor1.setValue(rc, -1);
+    updateUrlParam("src", PYODIDE_ROBOT_ANIMATION);
+    runPyodide(editor1, "kw_console1", "brython_div1");
+  };
+
+  document.getElementById("free_walk").onclick = async () => {
+    const rc = await fetchCode(FREE_WALK);
+    editor1.setValue(rc, -1);
+    updateUrlParam("src", FREE_WALK);
+    runPyodide(editor1, "kw_console1", "brython_div1");
+  };
+
+  document.getElementById("add1to100part2").onclick = async () => {
+    const c = await fetchCode(GIST_ADD1TO100);
+    editor2.setValue(c, -1);
+    runPyodide(editor2, "kw_console2", "brython_div2");
+  };
+
+  document.getElementById("kw_run1").onclick = () =>
+    runPyodide(editor1, "kw_console1", "brython_div1");
+  document.getElementById("kw_run2").onclick = () =>
+    runPyodide(editor2, "kw_console2", "brython_div2");
+  document.getElementById("kw_clear_console1").onclick = () =>
+    clearOutput("kw_console1", "brython_div1");
+  document.getElementById("kw_clear_console2").onclick = () =>
+    clearOutput("kw_console2", "brython_div2");
+});
+
+// 處理兩個 Output 列數
+  document.getElementById("kw_output1").onclick = () => {
+    const ta = document.getElementById("kw_console1");
+    ta.rows = "15";
+    ta.cols = "70";
+    ta.scrollTop = 0;
+  };
+  document.getElementById("kw_output2").onclick = () => {
+    const ta = document.getElementById("kw_console2");
+    ta.rows = "15";
+    ta.cols = "70";
+    ta.scrollTop = 0;
+  };
+
+async function fetchCode(url) {
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(`載入失敗 ${r.status}`);
+  return await r.text();
+}
+
+function clearOutput(consoleId, divId) {
+  document.getElementById(consoleId).value = "";
+  document.getElementById(divId).innerHTML = "";
+}
+
+async function runPyodide(editor, consoleId, divId) {
+  document.getElementById(consoleId).value = "";
+  document.getElementById(divId).innerHTML = "";
+
+  await pyodide.runPythonAsync(`
+import sys
+class JsWriter:
+  def write(self, s):
+    from js import document
+    ta = document.getElementById("${consoleId}")
+    ta.value += s
+    ta.scrollTop = ta.scrollHeight
+sys.stdout = JsWriter()
+sys.stderr = JsWriter()
+`);
+
+  try {
+    await pyodide.runPythonAsync(editor.getValue());
+  } catch (e) {
+    document.getElementById(consoleId).value += "\n錯誤：" + e.toString();
+  }
+}
+</script>
+</p>
+<br />WH17 << <a href='WH17.html'>Previous</a> </div>
         
     <!-- footer -->
       <div class="container">
