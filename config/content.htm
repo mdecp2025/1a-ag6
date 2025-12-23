@@ -13,31 +13,7 @@
 <p>
 <script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>
 </p>
-<p><button id="version">version</button> <button id="hello_button">hello</button> <button id="add1to100">1 add to 100</button> <button id="robot1">機器人巡邏</button><button id="free_walk">自由行</button> <button id="numpy_ode">numpy_ode</button></p>
-<!-- Ace Editor Scripts -->
-<p>
-<script src="/static/ace/FileSaver.min.js"></script>
-<script src="/static/ace/filereader.js"></script>
-<script src="/static/ace/ace.js"></script>
-<script src="/static/ace/ext-language_tools.js"></script>
-<script src="/static/ace/mode-python.js"></script>
-<script src="/static/ace/snippets/python.js"></script>
-</p>
-<!-- Editor 1 -->
-<div id="kw_editor1" style="width: 600px; height: 300px;"></div>
-<p><button id="kw_run1">Run</button> <button id="kw_output1">Output</button> <button id="kw_clear_console1">清除輸出區</button> <button onclick="location.reload()">Reload</button></p>
-<p><textarea id="kw_console1"></textarea></p>
-<div id="pyodide_div1"></div>
-<div id="mpl_output1"></div>
 <div id="brython_div1"></div>
-<hr/>
-<p>從 1 累加到 100 part2:</p>
-<p><button id="add1to100part2">1 add to 100</button></p>
-<!-- Editor 2 -->
-<div id="kw_editor2" style="width: 600px; height: 300px;"></div>
-<p><button id="kw_run2">Run</button> <button id="kw_output2">Output</button> <button id="kw_clear_console2">清除輸出區</button> <button onclick="location.reload()">Reload</button></p>
-<p><textarea id="kw_console2"></textarea></p>
-<div id="pyodide_div2"></div>
 <h1>WH3</h1>
 <h2>定義</h2>
 <p data-end="140" data-start="110">git 是一套「分散式版本控制系統」，用來：</p>
@@ -90,7 +66,8 @@
 <h2><span>為什麼要使用這些工具？</span></h2>
 <p>因為現代學習、工程與動態模擬需要：可追蹤、可回復、可協作、可展示，而這些工具正好分工完成這四件事。</p>
 <p></p>
-<h2 class="z-0 flex min-h-[46px] justify-start">心得</h2>
+<h2 class="z-0 flex min-h-[46px] justify-start">WH3心得</h2>
+<p>41423108:上課一開始覺得 Git、GitHub 很複雜，但實際操作後才發現可以清楚記錄每次程式修改的內容，對做動態模擬很有幫助。搭配 Gist 分享小段程式碼，以及用 cmsimde 整理學習成果，讓我比較不會亂掉，也更清楚自己學到了什麼。</p>
 <p>41423109:透過學習<span> git</span>、<span>GitHub</span>、<span>gist </span>與<span> cmsimde</span>，我了解如何有效管理程式版本與專案內容。這些工具不但能保存修改紀錄，也能方便分享與協作，讓學習與開發流程更有系統性，也更接近實際業界的做法。</p>
 <p>41423103: git 給予容錯的勇氣，GitHub 拓展協作的視野，而 cmsimde 則將這些技術轉化為有系統的教學力，實現了從個人開發到數位管理的全方位進化。</p>
 <h1>WH7</h1>
@@ -111,7 +88,7 @@
 </div>
 </div>
 </div>
-<h2 class="z-0 flex min-h-[46px] justify-start">心得</h2>
+<h2 class="z-0 flex min-h-[46px] justify-start">WH7心得</h2>
 <p>41423108:這堂課讓我第一次知道原來 Python 也可以在瀏覽器裡跑，不一定只能寫後端。用 Brython 寫網頁時，看到自己寫的 Python 能直接改變網頁內容，覺得滿有趣也比較好理解。</p>
 <p>41423101:對初學者來說，Brython 很友善，只要會一點 Python，就能在網頁上看到成果，不用懂太多其他技術，能增加學習信心，也讓寫程式變得更有趣。</p>
 <p>41423109:透過<span> Brython</span>，我可以用熟悉的<span> Python </span>語法在瀏覽器中開發網頁功能，不需要額外安裝環境。這讓我更容易理解前端程式的運作方式，也提升了學習網頁程式設計的效率。</p>
@@ -125,6 +102,8 @@
 <p><span>要在瀏覽器中模擬機器人，通常結合了 <b data-index-in-node="18" data-path-to-node="21">Brython</b> 的邏輯控制與 <b data-index-in-node="33" data-path-to-node="21">SVG</b> 或 <b data-index-in-node="39" data-path-to-node="21">Canvas</b> 的圖形渲染。</span></p>
 <p><span>模擬步驟：</span><span>先繪製機器人， 使用 HTML5 的 &lt;canvas&gt; 標籤作為畫布。接著物理邏輯， 在 Python 中編寫運動學公式（例如 v = d/t 或更複雜的連桿運動方程式）。最後動畫循環， 使用 Brython 的 browser.timer 模組，不斷更新機器人的位置座標並重繪畫面。</span></p>
 <p><span></span></p>
+<pre class="brush:py;collapse:true;auto-links:false;gutter:false;toolbar:false" contenteditable="false"></pre>
+<h2><span>WH10心得</span></h2>
 <p>41423108:以前覺得 Python 只能跑數據，沒想到加了 Brython 就能直接在網頁上控制機器人動起來，這點讓我覺得很酷！雖然剛開始在調校畫布座標跟物理公式時卡了一下，但用 Python 寫邏輯真的比 JS 直覺很多。</p>
 <p>41423101:我覺得用 Brython 在瀏覽器模擬機器人很有趣，把數學公式變成會動的畫面，能更清楚理解機器人的運動原理，也提升學習動力。</p>
 <p>41423109:<span>透過 Brython 將 Python 應用在瀏覽器中進行機器人模擬，讓我發現程式與數學可以結合成直觀的動態畫面。這種即時看到結果的學習方式，不但加深我對運動原理的理解，也讓程式設計變得更有成就感。</span></p>
@@ -135,6 +114,7 @@
 <p>1. 零成本的快速驗證 (Rapid Prototyping)<br/>在現實中測試機器人，最怕程式碼邏輯出錯導致硬體碰撞或馬達燒毀。在瀏覽器中模擬，可以先在虛擬環境驗證演算法，確認運動軌跡正確後再移植到實體機器上。</p>
 <p>2. 極致的跨平台便利性<br/>傳統模擬軟體（如 ROS 或 Gazebo）安裝過程極其複雜。瀏覽器模擬的優勢在於「免安裝」，只需傳送一個網址，任何裝置（手機、平板、筆電）都能即時觀看機器人的動作。</p>
 <p>3. 輕量化的教學與展示<br/>對於初學者來說，瀏覽器是最好的實驗場。透過 Brython 這類工具，我們可以直接用 Python 撰寫邏輯並在網頁上視覺化。這讓技術展示不再只是枯燥的文字紀錄，而是看得見的動態成果。</p>
+<h2>WH14心得</h2>
 <p>41423108:這堂課學到用 Brython 在瀏覽器跑模擬，最方便的就是免安裝跟不怕撞。我們在網頁上把動作邏輯調好，就算寫錯也不會弄壞實體機器人，而且做完只要傳個網址就能給老師看，這種快速驗證、方便分享的感覺真的很實用。</p>
 <p>41423101:我認為在瀏覽器模擬機器人能讓學習更安全又直觀，不用擔心硬體損壞，也方便教學與展示，讓初學者更容易理解與嘗試。</p>
 <h1>WH17</h1>
